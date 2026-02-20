@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radu Călin Arhitectură | Design Interior Sibiu</title>
+<meta name="description" content="Birou de arhitectură și design interior în Sibiu. Spații create cu viziune, funcționalitate și estetică rafinată.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --cream: #f0ebe4;
+  --warm: #d4c5b0;
+  --accent: #b8956a;
+  --dark: #111111;
+  --dark2: #1c1c1c;
+  --dark3: #272727;
+  --text: #e8e3dc;
+  --muted: #888880;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(184,149,106,0.5);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all 0.15s ease}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:28px 72px;display:flex;justify-content:space-between;align-items:center;transition:all 0.5s}
+nav.scrolled{background:rgba(17,17,17,0.96);backdrop-filter:blur(12px);padding:18px 72px;border-bottom:1px solid rgba(184,149,106,0.15)}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;color:var(--text);text-decoration:none;letter-spacing:0.05em}
+.logo em{font-style:italic;color:var(--accent)}
+.nav-menu{display:flex;gap:40px;list-style:none}
+.nav-menu a{color:var(--text);text-decoration:none;font-size:0.72rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;opacity:0.7;transition:all 0.3s}
+.nav-menu a:hover{opacity:1;color:var(--accent)}
+.nav-cta{padding:12px 28px;border:1px solid var(--accent);color:var(--accent);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+.nav-cta:hover{background:var(--accent);color:var(--dark)}
+
+/* Hero */
+.hero{height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:0 72px 80px;background:var(--dark);position:relative}
+.hero-left::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(184,149,106,0.4),transparent)}
+.hero-eyebrow{font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,5.5vw,5rem);font-weight:400;line-height:1.1;margin-bottom:32px}
+.hero-h1 em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:0.85rem;line-height:1.9;color:rgba(232,227,220,0.65);max-width:380px;margin-bottom:48px}
+.hero-btns{display:flex;gap:16px}
+.btn-filled{padding:16px 36px;background:var(--accent);color:var(--dark);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+.btn-filled:hover{background:var(--warm)}
+.btn-ghost{padding:16px 36px;border:1px solid rgba(255,255,255,0.2);color:var(--text);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-right{position:relative;overflow:hidden}
+.hero-right-bg{width:100%;height:100%;background:linear-gradient(135deg,#2a2018 0%,#1a1510 50%,#111 100%);position:relative}
+.hero-right-bg::before{content:'RC';position:absolute;bottom:-20px;right:-20px;font-family:'Playfair Display',serif;font-size:18rem;font-weight:700;color:rgba(184,149,106,0.04);line-height:1;user-select:none}
+.hero-lines{position:absolute;top:0;left:0;right:0;bottom:0;opacity:0.15}
+.hero-lines svg{width:100%;height:100%}
+.hero-badge{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);background:rgba(17,17,17,0.9);border:1px solid rgba(184,149,106,0.3);padding:20px 32px;text-align:center;backdrop-filter:blur(8px)}
+.badge-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--accent)}
+.badge-text{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* About */
+.about{padding:140px 72px;background:var(--dark)}
+.about-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:100px;align-items:center}
+.about-visual{position:relative}
+.about-main-img{width:100%;aspect-ratio:4/5;background:linear-gradient(160deg,#2a2015,#1a1510,#111);position:relative;overflow:hidden}
+.about-main-img::after{content:'ARHITECTURĂ';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%) rotate(-90deg);transform-origin:center;font-family:'Playfair Display',serif;font-size:6rem;font-weight:700;color:rgba(184,149,106,0.05);white-space:nowrap}
+.about-secondary{position:absolute;right:-36px;bottom:-36px;width:55%;aspect-ratio:1;background:linear-gradient(135deg,#201a10,#1a1510);border:4px solid var(--dark)}
+.about-content{padding:20px 0}
+.section-label{font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:block}
+.section-h{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.2;margin-bottom:24px}
+.sep{width:50px;height:1px;background:var(--accent);margin:28px 0}
+.about-content p{font-size:0.88rem;line-height:2;color:rgba(232,227,220,0.7);margin-bottom:20px}
+.expertise-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.exp-item{display:flex;align-items:center;gap:12px;font-size:0.8rem;color:rgba(232,227,220,0.75)}
+.exp-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* Process */
+.process{padding:140px 72px;background:var(--dark2)}
+.process-wrap{max-width:1200px;margin:0 auto}
+.process-head{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:80px;align-items:end}
+.process-head p{font-size:0.88rem;line-height:2;color:rgba(232,227,220,0.65)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.step{background:var(--dark3);padding:48px 36px;position:relative;transition:all 0.4s;border-bottom:2px solid transparent}
+.step:hover{border-bottom-color:var(--accent);background:#2f2f2f}
+.step-num{font-family:'Playfair Display',serif;font-size:3.5rem;color:rgba(184,149,106,0.15);line-height:1;margin-bottom:24px}
+.step-title{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:14px}
+.step-desc{font-size:0.8rem;line-height:1.9;color:rgba(232,227,220,0.6)}
+
+/* Projects */
+.projects{padding:140px 72px;background:var(--dark)}
+.projects-wrap{max-width:1400px;margin:0 auto}
+.projects-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px}
+.view-all{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.3s}
+.view-all:hover{border-color:var(--accent)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.project-card{position:relative;overflow:hidden;aspect-ratio:4/5;cursor:none}
+.project-card:nth-child(1){aspect-ratio:auto;grid-row:1/3}
+.proj-bg{width:100%;height:100%;transition:transform 0.7s ease}
+.project-card:nth-child(1) .proj-bg{background:linear-gradient(160deg,#2a2018,#1a1010)}
+.project-card:nth-child(2) .proj-bg{background:linear-gradient(160deg,#181820,#111118)}
+.project-card:nth-child(3) .proj-bg{background:linear-gradient(160deg,#1a2018,#101810)}
+.project-card:nth-child(4) .proj-bg{background:linear-gradient(160deg,#201818,#180d0d)}
+.project-card:nth-child(5) .proj-bg{background:linear-gradient(160deg,#18181a,#111115)}
+.project-card:hover .proj-bg{transform:scale(1.06)}
+.proj-info{position:absolute;bottom:0;left:0;right:0;padding:32px 28px;background:linear-gradient(to top,rgba(17,17,17,0.95) 0%,transparent 100%);transform:translateY(20px);opacity:0;transition:all 0.4s}
+.project-card:hover .proj-info{opacity:1;transform:translateY(0)}
+.proj-cat{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.proj-name{font-family:'Playfair Display',serif;font-size:1.4rem}
+.proj-loc{font-size:0.75rem;color:rgba(232,227,220,0.6);margin-top:4px}
+/* always show title label */
+.proj-label{position:absolute;top:24px;left:24px;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,227,220,0.5);background:rgba(17,17,17,0.6);padding:6px 12px;backdrop-filter:blur(4px)}
+
+/* Testimonials */
+.testimonials{padding:140px 72px;background:var(--dark2)}
+.testimonials-wrap{max-width:1100px;margin:0 auto;text-align:center}
+.testimonials-wrap .sep{margin:28px auto}
+.test-desc{font-size:0.88rem;color:rgba(232,227,220,0.6);line-height:1.8;max-width:480px;margin:0 auto 72px}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.test-card{background:var(--dark3);padding:48px 36px;border:1px solid rgba(255,255,255,0.04);text-align:left;position:relative;transition:all 0.4s}
+.test-card:hover{border-color:rgba(184,149,106,0.25)}
+.test-quote{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;line-height:1.85;color:var(--text);margin-bottom:32px}
+.test-footer{display:flex;align-items:center;gap:14px}
+.test-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#7a5a3a);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--dark);flex-shrink:0}
+.test-name{font-size:0.84rem;font-weight:500;margin-bottom:3px}
+.test-proj{font-size:0.68rem;color:var(--accent);letter-spacing:0.1em}
+.test-stars{position:absolute;top:28px;right:28px;color:var(--accent);font-size:0.75rem;letter-spacing:2px}
+
+/* Contact */
+.contact{padding:140px 72px;background:var(--dark)}
+.contact-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.contact-info{}
+.contact-info .sep{margin:28px 0}
+.contact-info p{font-size:0.88rem;line-height:2;color:rgba(232,227,220,0.65);margin-bottom:48px}
+.info-list{display:flex;flex-direction:column;gap:28px}
+.info-item{display:flex;gap:20px;align-items:flex-start}
+.info-icon{width:44px;height:44px;border:1px solid rgba(184,149,106,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.info-text-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.info-text-val{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text)}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.cf-group{display:flex;flex-direction:column;gap:8px}
+.cf-group label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+.cf-group input,.cf-group textarea,.cf-group select{background:var(--dark2);border:1px solid rgba(255,255,255,0.08);color:var(--text);padding:16px 20px;font-family:'Inter',sans-serif;font-size:0.85rem;transition:border-color 0.3s;outline:none;-webkit-appearance:none}
+.cf-group input:focus,.cf-group textarea:focus,.cf-group select:focus{border-color:var(--accent)}
+.cf-group textarea{min-height:130px;resize:vertical}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+footer{background:var(--dark2);border-top:1px solid rgba(184,149,106,0.12);padding:44px 72px;display:flex;justify-content:space-between;align-items:center}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);text-decoration:none}
+.foot-logo em{color:var(--accent);font-style:italic}
+.foot-copy{font-size:0.7rem;color:var(--muted);letter-spacing:0.08em}
+.foot-links{display:flex;gap:24px}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.3s}
+.foot-links a:hover{color:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(36px)}
+.reveal-l{opacity:0;transform:translateX(-40px)}
+.reveal-r{opacity:0;transform:translateX(40px)}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav id="navbar">
+  <a href="#" class="logo">Radu <em>Călin</em></a>
+  <ul class="nav-menu">
+    <li><a href="#despre">Despre</a></li>
+    <li><a href="#proces">Proces</a></li>
+    <li><a href="#proiecte">Proiecte</a></li>
+    <li><a href="#recenzii">Recenzii</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Consultație</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Arhitectură & Design Interior — Sibiu</div>
+    <h1 class="hero-h1">Spații care<br><em>inspiră</em> și<br>definesc viețile</h1>
+    <p class="hero-desc">Birou de arhitectură și design interior cu viziune contemporană. Transformăm concepte în realități construite cu rafinament, funcționalitate și caracter.</p>
+    <div class="hero-btns">
+      <a href="#proiecte" class="btn-filled">Vezi Proiectele</a>
+      <a href="#contact" class="btn-ghost">Contactează-ne</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-bg">
+      <div class="hero-lines">
+        <svg viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="100" y1="0" x2="100" y2="800" stroke="#b8956a" stroke-width="0.5" opacity="0.3"/>
+          <line x1="200" y1="0" x2="200" y2="800" stroke="#b8956a" stroke-width="0.5" opacity="0.2"/>
+          <line x1="300" y1="0" x2="300" y2="800" stroke="#b8956a" stroke-width="0.5" opacity="0.3"/>
+          <line x1="400" y1="0" x2="400" y2="800" stroke="#b8956a" stroke-width="0.5" opacity="0.2"/>
+          <line x1="500" y1="0" x2="500" y2="800" stroke="#b8956a" stroke-width="0.5" opacity="0.3"/>
+          <line x1="0" y1="150" x2="600" y2="150" stroke="#b8956a" stroke-width="0.5" opacity="0.3"/>
+          <line x1="0" y1="300" x2="600" y2="300" stroke="#b8956a" stroke-width="0.5" opacity="0.2"/>
+          <line x1="0" y1="450" x2="600" y2="450" stroke="#b8956a" stroke-width="0.5" opacity="0.3"/>
+          <line x1="0" y1="600" x2="600" y2="600" stroke="#b8956a" stroke-width="0.5" opacity="0.2"/>
+          <rect x="150" y="200" width="300" height="350" stroke="#b8956a" stroke-width="0.8" opacity="0.4" fill="none"/>
+          <rect x="180" y="230" width="60" height="80" stroke="#b8956a" stroke-width="0.5" opacity="0.3" fill="none"/>
+          <rect x="260" y="230" width="60" height="80" stroke="#b8956a" stroke-width="0.5" opacity="0.3" fill="none"/>
+          <rect x="340" y="230" width="60" height="80" stroke="#b8956a" stroke-width="0.5" opacity="0.3" fill="none"/>
+          <rect x="220" y="420" width="80" height="130" stroke="#b8956a" stroke-width="0.5" opacity="0.35" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-num">15+</div>
+      <div class="badge-text">Ani de excelență</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="despre">
+  <div class="about-wrap">
+    <div class="about-visual reveal-l">
+      <div class="about-main-img"></div>
+      <div class="about-secondary"></div>
+    </div>
+    <div class="about-content reveal-r">
+      <span class="section-label">Filozofia noastră</span>
+      <h2 class="section-h">Arhitectura ca<br><em style="font-family:'Playfair Display',serif;font-style:italic">artă trăită</em></h2>
+      <div class="sep"></div>
+      <p>Biroului nostru de arhitectură și design interior din Sibiu îmbină tradiția arhitecturală transilvăneană cu limbajul contemporan internațional. Fiecare proiect este abordat cu atenție deosebită la detaliu, materialitate și experiența spațiului.</p>
+      <p>Radu Călin, arhitect principal, coordonează o echipă multidisciplinară cu experiență în arhitectură rezidențială, comercială și restaurare de patrimoniu. Lucrăm în strânsă colaborare cu clientul, de la conceptul inițial până la recepția finală.</p>
+      <div class="expertise-list">
+        <div class="exp-item"><div class="exp-dot"></div>Arhitectură rezidențială</div>
+        <div class="exp-item"><div class="exp-dot"></div>Design interior premium</div>
+        <div class="exp-item"><div class="exp-dot"></div>Spații comerciale & HoReCa</div>
+        <div class="exp-item"><div class="exp-dot"></div>Restaurare patrimoniu</div>
+        <div class="exp-item"><div class="exp-dot"></div>Urbanism & masterplan</div>
+        <div class="exp-item"><div class="exp-dot"></div>Consultanță avize & autorizații</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="proces">
+  <div class="process-wrap">
+    <div class="process-head reveal">
+      <div>
+        <span class="section-label">Metodologia noastră</span>
+        <h2 class="section-h">Procesul de<br><em style="font-family:'Playfair Display',serif;font-style:italic">proiectare</em></h2>
+      </div>
+      <p>Un proces transparent și colaborativ, de la prima discuție până la predarea cheilor. Fiecare etapă este gândită pentru a maximiza calitatea și a minimiza stresul clientului.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Consultație & Brief</h3>
+        <p class="step-desc">Înțelegem nevoile, dorințele și bugetul vostru. Analizăm amplasamentul și definim împreună viziunea proiectului.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Concept & Studiu</h3>
+        <p class="step-desc">Elaborăm mai multe variante de concept, planuri, volume și materiale. Prezentăm opțiunile cu randări 3D realiste.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Documentație Tehnică</h3>
+        <p class="step-desc">Proiect tehnic complet pentru execuție și autorizație de construire. Coordonăm toți specialiștii implicați.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <h3 class="step-title">Asistență Execuție</h3>
+        <p class="step-desc">Supraveghem execuția pentru a ne asigura că proiectul se realizează conform viziunii și standardelor asumate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="proiecte">
+  <div class="projects-wrap">
+    <div class="projects-header reveal">
+      <div>
+        <span class="section-label">Proiecte selectate</span>
+        <h2 class="section-h">Portofoliu</h2>
+        <div class="sep"></div>
+      </div>
+      <a href="#contact" class="view-all">Toate proiectele →</a>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="proj-bg" style="min-height:600px"></div>
+        <div class="proj-label">Rezidențial</div>
+        <div class="proj-info">
+          <div class="proj-cat">Vilă privată</div>
+          <div class="proj-name">Casa Cindrel</div>
+          <div class="proj-loc">Păltiniș, Sibiu — 320 m²</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-bg"></div>
+        <div class="proj-label">Commercial</div>
+        <div class="proj-info">
+          <div class="proj-cat">Restaurant</div>
+          <div class="proj-name">Bistro Hermannstadt</div>
+          <div class="proj-loc">Sibiu — 180 m²</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-bg"></div>
+        <div class="proj-label">Interior</div>
+        <div class="proj-info">
+          <div class="proj-cat">Design Interior</div>
+          <div class="proj-name">Penthouse Centru</div>
+          <div class="proj-loc">Sibiu — 210 m²</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-bg"></div>
+        <div class="proj-label">Patrimoniu</div>
+        <div class="proj-info">
+          <div class="proj-cat">Restaurare</div>
+          <div class="proj-name">Casa Brukenthal</div>
+          <div class="proj-loc">Sighișoara — sec. XVIII</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="proj-bg"></div>
+        <div class="proj-label">Rezidențial</div>
+        <div class="proj-info">
+          <div class="proj-cat">Casă unifamilială</div>
+          <div class="proj-name">Vila Mărginimii</div>
+          <div class="proj-loc">Rășinari — 280 m²</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="recenzii">
+  <div class="testimonials-wrap">
+    <span class="section-label reveal">Clienți mulțumiți</span>
+    <h2 class="section-h reveal">Ce spun cei care<br>au construit cu noi</h2>
+    <div class="sep reveal"></div>
+    <p class="test-desc reveal">Relațiile noastre cu clienții se bazează pe încredere, transparență și livrarea promisiunilor.</p>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Radu și echipa sa au transformat visul nostru într-o casă extraordinară. Atenția la detalii și comunicarea perfectă ne-au făcut să ne simțim în siguranță pe tot parcursul proiectului."</p>
+        <div class="test-footer">
+          <div class="test-avatar">M</div>
+          <div>
+            <div class="test-name">Mihai & Alina Stoica</div>
+            <div class="test-proj">Casa Cindrel, Păltiniș</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Colaborarea pentru restaurarea casei noastre din centrul Sibiului a fost remarcabilă. Expertiza în patrimoniu și sensibilitatea estetică a biroului sunt cu adevărat excepționale."</p>
+        <div class="test-footer">
+          <div class="test-avatar">C</div>
+          <div>
+            <div class="test-name">Corina Neagu</div>
+            <div class="test-proj">Casă renovată, Centru Sibiu</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Bistro-ul nostru a primit nenumărate complimente pentru design. Radu a înțeles perfect brandul și atmosfera pe care o doream. Investiția a meritat din plin."</p>
+        <div class="test-footer">
+          <div class="test-avatar">A</div>
+          <div>
+            <div class="test-name">Alexandru Milea</div>
+            <div class="test-proj">Bistro Hermannstadt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info reveal-l">
+      <span class="section-label">Să construim împreună</span>
+      <h2 class="section-h">Începeți<br><em style="font-family:'Playfair Display',serif;font-style:italic">proiectul</em> vostru</h2>
+      <div class="sep"></div>
+      <p>Consultația inițială este gratuită și fără obligații. Discutăm despre viziunea voastră și vă prezentăm cum putem colabora pentru a o transforma în realitate.</p>
+      <div class="info-list">
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-text-label">Birou</div>
+            <div class="info-text-val">Str. Avram Iancu 14, Sibiu</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div>
+            <div class="info-text-label">Telefon</div>
+            <div class="info-text-val">+40 744 xxx xxx</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-text-label">Email</div>
+            <div class="info-text-val">studio@raducalin.ro</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-text-label">Program</div>
+            <div class="info-text-val">Lun–Vin 9:00–18:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form reveal-r" onsubmit="return false">
+      <div class="cf-row">
+        <div class="cf-group">
+          <label>Nume</label>
+          <input type="text" placeholder="Numele dumneavoastră">
+        </div>
+        <div class="cf-group">
+          <label>Telefon</label>
+          <input type="tel" placeholder="+40 7xx xxx xxx">
+        </div>
+      </div>
+      <div class="cf-group">
+        <label>Email</label>
+        <input type="email" placeholder="email@exemplu.ro">
+      </div>
+      <div class="cf-group">
+        <label>Tipul proiectului</label>
+        <select>
+          <option>Casă / Vilă</option>
+          <option>Apartament / Design Interior</option>
+          <option>Spațiu comercial</option>
+          <option>Restaurare / Renovare</option>
+          <option>Alt tip de proiect</option>
+        </select>
+      </div>
+      <div class="cf-group">
+        <label>Descrieți proiectul</label>
+        <textarea placeholder="Spuneți-ne despre proiectul dumneavoastră — locație, suprafață estimată, buget orientativ, termen dorit..."></textarea>
+      </div>
+      <button type="submit" class="btn-filled" style="cursor:none;border:none;width:100%;font-family:'Inter',sans-serif;letter-spacing:0.15em">Trimiteți Cererea →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="foot-logo">Radu <em>Călin</em> Studio</a>
+  <div class="foot-copy">© 2025 Radu Călin Arhitectură. Toate drepturile rezervate.</div>
+  <div class="foot-links">
+    <a href="#">Instagram</a>
+    <a href="#">Behance</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  gsap.to(cursor,{x:mx,y:my,duration:0.05});
+});
+function animateRing(){
+  rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;
+  gsap.set(ring,{x:rx,y:ry});
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.8,opacity:0.4,duration:0.3});gsap.to(cursor,{scale:0.5,duration:0.3})});
+  el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:1,duration:0.3});gsap.to(cursor,{scale:1,duration:0.3})});
+});
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',scrollY>80));
+const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+tl.from('.hero-eyebrow',{opacity:0,y:16,duration:0.9,delay:0.4})
+  .from('.hero-h1',{opacity:0,y:48,duration:1.1},'-=0.6')
+  .from('.hero-desc',{opacity:0,y:28,duration:0.9},'-=0.7')
+  .from('.hero-btns',{opacity:0,y:20,duration:0.8},'-=0.6')
+  .from('.hero-right',{opacity:0,x:60,duration:1.4},'-=1.4')
+  .from('.hero-badge',{opacity:0,y:20,duration:0.7},'-=0.5');
+gsap.utils.toArray('.reveal').forEach(el=>{
+  gsap.to(el,{opacity:1,y:0,duration:0.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 87%'}});
+});
+gsap.utils.toArray('.reveal-l').forEach(el=>{
+  gsap.to(el,{opacity:1,x:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 82%'}});
+});
+gsap.utils.toArray('.reveal-r').forEach(el=>{
+  gsap.to(el,{opacity:1,x:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 82%'}});
+});
+gsap.to('.hero-right-bg',{y:-80,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+</script>
+</body>
+</html>
